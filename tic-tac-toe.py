@@ -1,3 +1,4 @@
+/*author: Mythri Prasanna Paluri*/
 from tkinter import *
 import numpy as np
 size_of_board = 600
@@ -44,16 +45,8 @@ class Tic_Tac_Toe():
         self.player_X_starts = not self.player_X_starts
         self.player_X_turns = self.player_X_starts
         self.board_status = np.zeros(shape=(3, 3))
-
-    # ------------------------------------------------------------------
-    # Drawing Functions:
-    # The modules required to draw required game based object on canvas
-    # ------------------------------------------------------------------
-
     def draw_O(self, logical_position):
         logical_position = np.array(logical_position)
-        # logical_position = grid value on the board
-        # grid_position = actual pixel values of the center of the grid
         grid_position = self.convert_logical_to_grid_position(logical_position)
         self.canvas.create_oval(grid_position[0] - symbol_size, grid_position[1] - symbol_size,
                                 grid_position[0] + symbol_size, grid_position[1] + symbol_size, width=symbol_thickness,
@@ -82,12 +75,8 @@ class Tic_Tac_Toe():
             self.tie_score += 1
             text = 'It\'s a Tie!'
             color = 'gray'
-
-        # Clear the canvas and display the result
         self.canvas.delete("all")
         self.canvas.create_text(size_of_board / 2, size_of_board / 4, font="cmr 40 bold", fill=color, text=text)
-
-        # Display scores
         score_text = (
             f"Scores\n"
             f"Player 1 (X): {self.X_score}\n"
@@ -95,16 +84,8 @@ class Tic_Tac_Toe():
             f"Tie: {self.tie_score}"
         )
         self.canvas.create_text(size_of_board / 2, size_of_board / 2, font="cmr 30 bold", fill=Green_color, text=score_text)
-
-        # Prompt to play again
         self.canvas.create_text(size_of_board / 2, 3 * size_of_board / 4, font="cmr 20 bold", fill="gray", text="Click to play again")
         self.reset_board = True
-
-
-    # ------------------------------------------------------------------
-    # Logical Functions:
-    # The modules required to carry out game logic
-    # ------------------------------------------------------------------
 
     def convert_logical_to_grid_position(self, logical_position):
         logical_position = np.array(logical_position, dtype=int)
